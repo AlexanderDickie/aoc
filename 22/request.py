@@ -11,12 +11,26 @@ def curl_input(day, part):
     cookie = open("cookie-header.txt").read()[:-1]
     headers = {'Cookie': cookie}
     request = requests.get(url, headers=headers).text
-    if part==0:
-        start=request.find("<code>")
-        end=request.find("</code>", start)
-        return request[start+len("<code>"): end]
-    return request
 
+    if part==0:
+        # example input, find the longest <code> division and its probs that
+        i = 0
+        mx_len = 0
+        example = 0
+        while i < len(request):
+            start = request.find("<code>", i)
+            end = request.find("</code>", i+len("<code>"))
+            if start == -1:
+                break
+
+            if end-start > mx_len:
+                example = request[start+len("<code>"): end]
+                mx_len = end-start
+
+            i = end + len("</code>")
+        return example
+    else:
+        return request
 
 def get_input(day, part): 
     path = f"inputs/day{day}-{part}.txt"
