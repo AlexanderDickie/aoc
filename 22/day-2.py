@@ -31,12 +31,12 @@ def part_2(inp):
     sm = 0
     for line in lines:
         op, outcome = line.split(' ')
-        me_loose = opponent_wins[op]
+        me_lose = opponent_wins[op]
         me_draw = chr(ord('X') + ord(op) - ord('A'))
-        me_win = set(['X','Y','Z']).difference([me_loose, me_draw]).pop()
+        me_win = set(['X','Y','Z']).difference([me_lose, me_draw]).pop()
 
         if outcome == 'X':
-            me = me_loose
+            me = me_lose
             sm += 0
         elif outcome == 'Y':
             me = me_draw
