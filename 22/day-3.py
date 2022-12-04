@@ -19,8 +19,8 @@ def part_2(inp):
 
     sm = 0
     for i in range(0, len(lines), 3):
-        group = lines[i: i+3]
-        badge = set(group[0]).intersection(group[1]).intersection(group[2]).pop()
+        a, b, c = lines[i: i+3]
+        badge = set(a).intersection(b).intersection(c).pop()
         if badge.isupper():
             sm += ord(badge) - ord('A') + 27
         else:
