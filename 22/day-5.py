@@ -15,9 +15,7 @@ def part_1(inp):
 
     for line in bottom:
         line = line.split(' ')
-        a = int(line[1])
-        b = int(line[3])
-        c = int(line[5])
+        a, b, c = int(line[1]), int(line[3]), int(line[5])
 
         for i in range(a):
             mv = stacks[b-1].pop(0)
@@ -44,9 +42,7 @@ def part_2(inp):
 
     for line in bottom:
         line = line.split(' ')
-        a = int(line[1])
-        b = int(line[3])
-        c = int(line[5])
+        a, b, c = int(line[1]), int(line[3]), int(line[5])
 
         mv = []
         for i in range(a):
