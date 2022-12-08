@@ -16,7 +16,6 @@ def part_1(inp):
     i = 0
     while i < len(lines):
         line = lines[i]
-        print(line)
         if line == "$ ls":
             j = i + 1
             while j < len(lines) and lines[j][0] != "$":
@@ -110,7 +109,6 @@ def part_1b(inp):
                         file_sm += file_size
                     j += 1
                 i = j - 1
-                print(lines[i+1])
 
                 # add file_sm to parent directorys, and this dir 
                 for dir_name in path.split('/'):
@@ -128,7 +126,6 @@ def part_1b(inp):
             path = "".join(path.split("/")[:-1])
 
         else:
-            print(line)
             child = line.split(' ')[2]
             path += "/" + child
 
