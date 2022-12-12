@@ -2,7 +2,6 @@ from os import wait
 from request import get_input
 from math import prod 
 
-# greedy
 def part_1(inp):
     infos = inp[:-1].split('\n\n')
     monkeys = []
@@ -51,23 +50,6 @@ print(get_input(11, 0))
 print(part_1(get_input(11, 0)))
 print(part_1(get_input(11, 1)))
 
-# represent each item as combination of modulu from relevent divisors, this is all what matters
-class Item:
-    def __init__(self, divisors, initial_value):
-        divisor_map = {}
-        for divisor in divisors:
-            divisor_map[divisor] = initial_value % divisor
-        self.divisor_map = divisor_map
-
-    def is_divisible(self, divisor):
-        return self.divisor_map[divisor] == 0
-
-    def update(self, expr):
-        for k, v in self.divisor_map.items():
-            old = v
-            new_value = eval(expr)
-            self.divisor_map[k] = new_value % k
-
 def part_2(inp):
     infos = inp[:-1].split('\n\n')
     monkeys = []
@@ -95,21 +77,20 @@ def part_2(inp):
                 ]
         monkeys.append(monkey)
 
-    # convert each monkeys integer item to class item
+    lcm = prod(list(set(divisors)))
     for monkey in monkeys:
-        new_items = []
-        for item in monkey[0]:
-            new_items.append(Item(divisors, item))
-        monkey[0] = new_items
+        for idx, item in enumerate(monkey[0]):
+            monkey[0][idx] = item % lcm
 
     for i in range(10000):
-        print(i)
         for monkey in monkeys:
             for item in monkey[0]:
-                item.update(monkey[1])
+                old = item
+                item = eval(monkey[1])
+                item %= lcm
 
                 [div, true, false] = monkey[2]
-                if item.is_divisible(div):
+                if item % div == 0:
                     monkeys[true][0].append(item)
                 else:
                     monkeys[false][0].append(item)
@@ -123,4 +104,4 @@ def part_2(inp):
     return prod(inspections[-2:])
 
 print(part_2(get_input(11, 0)))
-print(part_2(get_input(11, 2)))
+print(part_2(get_input(11, 1)))
